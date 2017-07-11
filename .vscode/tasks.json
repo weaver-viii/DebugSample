@@ -1,0 +1,35 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "taskName": "restore CLR",
+            "command": "dotnet",
+            "type": "shell",
+            "args": [
+                "restore",
+                "src/Debug-CLR/Debug.fsproj"
+            ],
+            "presentation": {
+                "reveal": "silent"
+            },
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "taskName": "build CLR",
+            "command": "dotnet",
+            "type": "shell",
+            "group": "build",
+            "args": [
+                "build",
+                "src/Debug-CLR/Debug.fsproj"
+            ],
+            "dependsOn": "restore CLR",
+            "presentation": {
+                "reveal": "silent"
+            },
+            "problemMatcher": "$msCompile"
+        }
+    ]
+}
