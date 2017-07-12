@@ -1,6 +1,14 @@
 module Debug.CLR
 
+open Expecto
+
+let tests = 
+    testList "hello world" [
+        testCase "sound check" (fun () ->
+            Expect.isTrue false "make some noise"
+        )
+    ]
+
 [<EntryPoint>]
 let main argv =
-    printfn "%A" argv
-    0 // return an integer exit code
+    runTestsWithArgs { defaultConfig with ``parallel`` = false } argv tests
