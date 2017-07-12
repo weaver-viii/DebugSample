@@ -9,7 +9,7 @@
             "type": "shell",
             "args": [
                 "restore",
-                "src/Debug-CLR/Debug.fsproj"
+                "src/CLR/CLR.fsproj"
             ],
             "presentation": {
                 "reveal": "silent"
@@ -23,9 +23,37 @@
             "group": "build",
             "args": [
                 "build",
-                "src/Debug-CLR/Debug.fsproj"
+                "src/CLR/CLR.fsproj"
             ],
             "dependsOn": "restore CLR",
+            "presentation": {
+                "reveal": "silent"
+            },
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "taskName": "restore DotNetCore",
+            "command": "dotnet",
+            "type": "shell",
+            "args": [
+                "restore",
+                "src/DotNetCore/DotNetCore.fsproj"
+            ],
+            "presentation": {
+                "reveal": "silent"
+            },
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "taskName": "build DotNetCore",
+            "command": "dotnet",
+            "type": "shell",
+            "group": "build",
+            "args": [
+                "build",
+                "src/DotNetCore/DotNetCore.fsproj"
+            ],
+            "dependsOn": "restore DotNetCore",
             "presentation": {
                 "reveal": "silent"
             },
