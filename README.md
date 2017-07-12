@@ -70,7 +70,7 @@ Debugger configuration in `launch.json`:
 }
 ```
 
-## .Net Core (4.6.1)
+## .Net Core
 
 Tasks defined in `tasks.json`:
 
