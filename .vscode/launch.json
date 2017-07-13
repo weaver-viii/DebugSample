@@ -3,6 +3,14 @@
     "configurations": [
         {
             "name": ".NET CLR Launch",
+            "linux": {
+                "type": "mono",
+                "preLaunchTask": "build Mono"
+            },           
+             "osx": {
+                "type": "mono",
+                "preLaunchTask": "build Mono"
+            },
             "type": "clr",
             "request": "launch",
             "preLaunchTask": "build CLR",

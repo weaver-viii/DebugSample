@@ -32,6 +32,17 @@
             "problemMatcher": "$msCompile"
         },
         {
+            "taskName": "build Mono",
+            "command": "./msbuild.sh",
+            "type": "shell",
+            "group": "build",
+            "args": [
+                "src/CLR/CLR.fsproj"
+            ],
+            "dependsOn": "restore CLR",
+            "problemMatcher": "$msCompile"
+        },
+        {
             "taskName": "restore DotNetCore",
             "command": "dotnet",
             "type": "shell",

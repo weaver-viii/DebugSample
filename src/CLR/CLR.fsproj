@@ -4,6 +4,14 @@
     <TargetFramework>net461</TargetFramework>
     <DebugType>portable</DebugType>
   </PropertyGroup>
+  <PropertyGroup Condition="$(OS)=='Unix'">
+    <DebugType>full</DebugType>
+  </PropertyGroup>
+  <Target Name="Copy MDBs"
+          Condition="$(OS)=='Unix'"
+          AfterTargets="Build">
+         <Copy SourceFiles="$(IntermediateOutputPath)/$(AssemblyName).exe.mdb" DestinationFolder="$(OutputPath)" ContinueOnError="true" />
+  </Target>
   <ItemGroup>
     <Compile Include="Program.fs" />
     <None Include="App.config" />
