@@ -18,9 +18,7 @@ Sample showing how to use .Net debugging on Windows, OSX, and Linux.
 5. Choose target (`CLR` vs `.Net Core`) in combobox
 6. Press green arrow or `F5`
 
-## Full Framework (4.6.1)
-
-**Tested only on Windows**
+## Full Framework (4.6.1) - Windows
 
 Tasks defined in `tasks.json`:
 
@@ -68,6 +66,59 @@ Debugger configuration in `launch.json`:
     "stopAtEntry": false,
     "console": "internalConsole"
 }
+```
+
+## Full Framework (4.6.1) - mono (Linux / OSX)
+
+Mono version requires `mono-debugger` extenison and bit of magic.
+
+Helper script `msbuild.sh`:
+```
+#!/usr/bin/env bash
+DOTNET_CLI_PATH="$(dirname $(which dotnet))/sdk/$(dotnet --version)"
+export MSBuildExtensionsPath="$DOTNET_CLI_PATH/"
+export CscToolExe="$DOTNET_CLI_PATH/Roslyn/RunCsc.sh"
+export MSBuildSDKsPath="$DOTNET_CLI_PATH/Sdks"
+
+msbuild /nologo "$@"
+```
+
+Tasks defined in `tasks.json`:
+```
+{
+    "taskName": "build Mono",
+    "command": "./msbuild.sh",
+    "type": "shell",
+    "group": "build",
+    "args": [
+        "src/CLR/CLR.fsproj"
+    ],
+    "dependsOn": "restore CLR",
+    "problemMatcher": "$msCompile"
+},
+```
+
+Debugger configuration in `launch.json`:
+```
+{
+    "name": ".NET CLR Launch",
+    "linux": {
+        "type": "mono",
+        "preLaunchTask": "build Mono"
+    },           
+     "osx": {
+        "type": "mono",
+        "preLaunchTask": "build Mono"
+    },
+    "type": "clr",
+    "request": "launch",
+    "preLaunchTask": "build CLR",
+    "program": "${workspaceRoot}/src/CLR/bin/Debug/net461/CLR.exe",
+    "args": [],
+    "cwd": "${workspaceRoot}",
+    "stopAtEntry": false,
+    "console": "internalConsole"
+},
 ```
 
 ## .Net Core
